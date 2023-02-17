@@ -1,33 +1,29 @@
 import requests
-import re
-import sys
+import argparse
 import json
 
-# Get the domain name from the command-line arguments
-try:
-    domain = sys.argv[1]
-except IndexError:
-    print("Please provide a domain name.")
-    exit()
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description='Fetch subdomains from jldc.me API')
+parser.add_argument('-d', '--domain', type=str, help='Target domain name', required=True)
+parser.add_argument('-o', '--output', type=str, help='Output file for subdomains', default='subdomains.txt')
+args = parser.parse_args()
 
 # Set the URL for fetching the subdomains
-subdomain_url = f"https://jldc.me/anubis/subdomains/{domain}"
+subdomain_url = f"https://jldc.me/anubis/subdomains/{args.domain}"
 
 # Use requests to get the data from the URL
 response = requests.get(subdomain_url)
 
-# convert the JSON string back to a Python dictionary
-y = json.loads(response.text)
+# convert the JSON string back to a Python list
+subdomains = json.loads(response.text)
 
-# concatenate the elements of the list into a single string,
+# concatenate the subdomains into a single string,
 # separated by newline characters
-output = "\n".join(y)
+output = "\n".join(subdomains)
 
-# print the resulting string
-print(output)
-
-# open the subdomain_name in write mode and write the data to it
-subdomain_name=f"jldc-{domain}.txt"
-
-with open(subdomain_name, "w") as f:
+# Write the subdomains to the output file
+with open(args.output, 'w') as f:
     f.write(output)
+
+# Print the subdomains to the console
+print(output)
