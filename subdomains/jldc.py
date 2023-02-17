@@ -27,7 +27,7 @@ output = "\n".join(y)
 print(output)
 
 # open the subdomain_name in write mode and write the data to it
-subdomain_name=f"subdomain-{domain}.txt"
+subdomain_name=f"jldc-{domain}.txt"
 
 with open(subdomain_name, "w") as f:
     f.write(output)
