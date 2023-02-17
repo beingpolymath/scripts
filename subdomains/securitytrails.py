@@ -2,13 +2,12 @@ import requests
 import json
 import sys
 
-api_key = "test"
-
 # Get the domain name from the command-line arguments
 try:
-    domain = sys.argv[1]
+    domain = sys.argv[2]
+    api_key = sys.argv[4]
 except IndexError:
-    print("Please provide a domain name.")
+    print("Please provide the -d domain name and -t API key as command-line arguments.")
     exit()
 
 
