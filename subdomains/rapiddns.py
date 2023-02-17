@@ -19,7 +19,7 @@ response = requests.get(subdomain_url)
 soup = BeautifulSoup(response.text, "html.parser")
 
 # open the subdomain_name in write mode and write the data to it
-subdomain_name=f"subdomain-{domain}.txt"
+subdomain_name=f"rapiddns-{domain}.txt"
 with open(subdomain_name, 'w') as out:
     # find the <td> elements in the document
     td_elements = soup.find_all("td")
